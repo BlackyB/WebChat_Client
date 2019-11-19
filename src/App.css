@@ -1,0 +1,157 @@
+.App {
+  text-align: left;
+  box-sizing: border-box;
+}
+
+input[type=text]:focus{
+  outline: none;
+}
+
+#name{
+  border-radius: 25px 25px 0 0;
+  background-color: #eaeaea;
+  padding: 10px 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  min-height: 30px;
+  width: 100%;
+}
+
+.light{
+  margin: 0;
+  font-weight: lighter;
+  color: #919191;
+  font-size: 12px;
+}
+
+.reverse{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#bottom{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 0 0 25px 25px;
+  background-color: #eaeaea;
+  padding: 10px 0;
+  min-height: 30px;
+  width: 100%;
+}
+
+.center{
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.top{
+  margin-top: 5px;
+}
+
+.inside{
+  height: 100%;
+  padding: 0 10px;
+  overflow-y: scroll;
+}
+
+.align-left{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.align-right{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.margin-left{
+  margin-left: 15px;
+}
+
+.margin-right{
+  margin-right: 15px;
+}
+
+.chat{
+  margin-top: 50px;
+  height: 600px;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid grey;
+  border-radius: 25px;
+}
+
+.Message{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  word-wrap: break-word;
+  width: auto;
+  border-radius: 25px;
+  margin-right: auto;
+  margin-left: auto;
+  margin: 0 0;
+  padding: 5px 15px;
+}
+
+.own_Message{
+  text-align: right;
+  max-width: 230px;
+  background: rgba(0,199,36,1);
+  background: -moz-linear-gradient(top, rgba(0,199,36,1) 0%, rgba(154,255,59,1) 50%, rgba(154,255,59,1) 51%, rgba(0,199,36,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,199,36,1)), color-stop(50%, rgba(154,255,59,1)), color-stop(51%, rgba(154,255,59,1)), color-stop(100%, rgba(0,199,36,1)));
+  background: -webkit-linear-gradient(top, rgba(0,199,36,1) 0%, rgba(154,255,59,1) 50%, rgba(154,255,59,1) 51%, rgba(0,199,36,1) 100%);
+  background: -o-linear-gradient(top, rgba(0,199,36,1) 0%, rgba(154,255,59,1) 50%, rgba(154,255,59,1) 51%, rgba(0,199,36,1) 100%);
+  background: -ms-linear-gradient(top, rgba(0,199,36,1) 0%, rgba(154,255,59,1) 50%, rgba(154,255,59,1) 51%, rgba(0,199,36,1) 100%);
+  background: linear-gradient(to bottom, rgba(0,199,36,1) 0%, rgba(154,255,59,1) 50%, rgba(154,255,59,1) 51%, rgba(0,199,36,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00c724', endColorstr='#00c724', GradientType=0 );
+}
+
+.other_Message{
+  text-align: left;
+  max-width: 230px;
+  background: rgba(226,226,226,1);
+  background: -moz-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(226,226,226,1)), color-stop(50%, rgba(219,219,219,1)), color-stop(51%, rgba(209,209,209,1)), color-stop(100%, rgba(254,254,254,1)));
+  background: -webkit-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+  background: -o-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+  background: -ms-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+  background: linear-gradient(to bottom, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=0 );
+}
+
+.grey{
+  color: red;
+}
+
+#text_Chat{
+  width: 100%;
+}
+
+#text_Chat input{
+  border-radius: 25px;
+  padding: 5px 10px;
+}
+
+
+#text_Chat input[type=text]{
+  width:70%;
+  background-color: #f7f7f7;
+  border: none;
+  border-radius: 25px 0 0 25px;
+}
+
+
+#text_Chat input[type=submit]{
+  width: auto;
+  border: none;
+  border-radius: 0 25px 25px 0;
+}
