@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
 
-const URL = 'wss://10.234.100.131:3030'
+const URL = 'wss://34.240.41.237:3030'
 
 class Chat extends Component {
   state = {
