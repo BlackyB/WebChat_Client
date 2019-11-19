@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
 
-const URL = 'ws://10.234.100.131:3030'
+const URL = 'wss://10.234.100.131:3030'
 
 class Chat extends Component {
   state = {
@@ -70,11 +70,11 @@ class Chat extends Component {
       <p type="text" id='name' className="center">  {this.state.name} </p> 
 
       <div className="inside">
-      <div className="reverse">    
-      {this.state.messages.map((message, index) =>
-        <ChatMessage key={index} message={message.message} name={message.name} date={this.state.date} myself={message.name === this.state.name} think={message.think} />,
-        )}
-      </div>
+        <div className="reverse">    
+        {this.state.messages.map((message, index) =>
+          <ChatMessage key={index} message={message.message} name={message.name} date={this.state.date} myself={message.name === this.state.name} think={message.think} />,
+          )}
+        </div>
       </div>
 
       <ChatInput ws={this.ws} onSubmitMessage={messageString => this.submitMessage(messageString)}/>
