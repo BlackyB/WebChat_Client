@@ -1,9 +1,9 @@
-## Web chat using browser and websocket server
+## Web Browser Chat and WebSocket server
 
 ### How to use ?
 
-### Client App
-- First download the Web Chat Client folder on your computer/server
+### Client App 
+- First download the Web Chat Client folder on your computer/server => https://github.com/BlackyB/WebChat_Client
 - Open your terminal and go in the root client folder
 - Run 'npm install' so it will install all required dependencies (package.json included)
 - Finaly you can run it with 'npm start' (shortcut for react-scripts start) or build it with 'npm run build' (shotcut for react-scripts build)
@@ -13,7 +13,7 @@ For it to be able to communicate with another user you'll need to install the We
 
 ### WebSocket Server
 
-- First download the Web Chat Server folder on your computer/server
+- First download the Web Chat Server folder on your computer/server => https://github.com/BlackyB/WebChat_Server
 - Open your terminal and go in the root server folder
 - Run 'npm install' so it will install all required dependencies (package.json included)
 - Finaly you can run it with 'node server.js'
