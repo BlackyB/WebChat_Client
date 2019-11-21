@@ -8,8 +8,8 @@
 - Run 'npm install' so it will install all required dependencies (package.json included)
 - Finaly you can run it with 'npm start' (shortcut for react-scripts start) or build it with 'npm run build' (shotcut for react-scripts build)
 
-The client app will be running on your computer/server
-For it to be able to communicate with another user you'll need to install the Web Chat Server
+The client app will be running on your computer/server   
+For it to be able to communicate with another user you'll need to install the Web Chat Server aswell
 
 ### WebSocket Server
 
