@@ -89,7 +89,7 @@ input[type=text]:focus{
   border-radius: 25px;
 }
 
-.Message{
+.message{
   display: flex;
   flex-direction: row;
   align-content: center;
@@ -129,8 +129,14 @@ input[type=text]:focus{
 }
 
 .grey{
-  color: red;
+  color: grey;
 }
+
+.highlight{
+  font-size: calc(1rem + 1rem/100*10);
+  filter: brightness(90%);
+}
+
 
 #text_Chat{
   width: 100%;
