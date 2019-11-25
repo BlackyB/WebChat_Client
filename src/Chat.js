@@ -3,7 +3,7 @@ import ChatInput from './ChatInput'
 import ChatMessage from './ChatMessage'
 
 // Web Socket localization
-const URL = 'ws://localhost:80'
+const URL = 'ws://10.234.100.131:80'
 
 // Capitalize the first letter of a word
 function capFirst(string) {return string.charAt(0).toUpperCase() + string.slice(1);}
@@ -21,42 +21,59 @@ function generateName(){
 
 // Check if Local Storage has a nickname, if so use it, else generate it randomly
 function getName(){
-  var previous_Nick = localStorage.getItem('nickname');
+  var previous_Nick = localStorage.getItem('Nickname');
   var user_Nick = '';
 
   if (previous_Nick !== null && previous_Nick !== undefined) {
     user_Nick = previous_Nick;
   } else {
     user_Nick = generateName();
-    localStorage.setItem('nickname', user_Nick);
+    localStorage.setItem('Nickname', user_Nick);
   }
   return (user_Nick);
 }
 
+function timeToString(int){
+  var output;
+  if (int<10) {
+    output = "0" + int.toString();
+  } else {
+    output = int.toString();
+  }
+  return (output);
+}
+
 //Return the current server time
 function getNow() {
-  var today = new Date();
-  var now = (today.getHours()).toString() + ':' + (today.getMinutes()).toString();
+  const today = new Date();
+  var hours = timeToString(today.getHours());
+  var minutes = timeToString(today.getMinutes());
+  var now = hours + ':' + minutes;
   return (now);
 }
 
-// Refresh the local storage for new messages by removing the old ones
-function shiftLocal(message){
-  //Change max_Stored value if you want to store more messages
-  const max_Stored = 10;
-
-  for (var i = 0; i < max_Stored; i++){
-    var current_Message = localStorage.getItem('messages['+ (i+1) + ']')
-    localStorage.setItem('messages['+ (i) + ']', current_Message);
+//Return the messages history if there is one
+function getHistory(){
+  var messages = [];
+  var local_Messages = JSON.parse(localStorage.getItem('History'));
+  var max_Messages = 10;
+  if (local_Messages !== null && local_Messages.length < max_Messages) {
+    max_Messages = local_Messages.length;
   }
-  localStorage.setItem('messages[9]', JSON.stringify(message));
+  if (local_Messages !== null) {
+    for (var i = 0; i <= max_Messages - 1; i++) {
+      messages.push(local_Messages[i]);
+    }
+  }
+  console.log(messages);
+  return (messages);
 }
 
 // Main Chat Class
 class Chat extends Component {
   state = {
     name: getName(),
-    messages: [],
+    messages: getHistory(),
     date: getNow(),
     think: false
   }
@@ -68,19 +85,13 @@ class Chat extends Component {
     this.ws.onopen = () => {
       // On connecting, do nothing but log it to the console
       console.log('connected');
-
-      // Load local stored message
-      var old = [];
-      for (var i = localStorage.length - 1; i >= 0; i--) {
-        old[i] = JSON.parse(localStorage.getItem('messages[' + i + ']'));
-        console.log(old[i]);
-      }
     }
 
     // On receiving a message from the WebSocket, add it to chat messages
     this.ws.onmessage = evt => {
-      const message = JSON.parse(evt.data)
-      this.addMessage(message)
+      const message = JSON.parse(evt.data);
+      this.addMessage(message);
+      this.refresh_History();
     }
 
     // Automatically try to reconnect on connection loss
@@ -95,29 +106,48 @@ class Chat extends Component {
   // Add a message to the chat
   addMessage = message => {
     this.setState(state => ({ messages: [message, ...state.messages] }))
-    shiftLocal(message);
   }
 
   // Send a message to the websocket
-  sendMessage = message =>
-  this.ws.send(JSON.stringify(message));
+  sendMessage = message => {
+    this.ws.send(JSON.stringify(message));
+  }
 
   // Final submit step (Client and Remote)
   finalSubmit = message => {
     this.addMessage(message);
     this.sendMessage(message);
+    this.refresh_History();
+  }
+
+  //Refresh history
+  refresh_History = () => {
+    var history = JSON.stringify(this.state.messages);
+    localStorage.setItem('History', history);
   }
 
   // Sets a new nickname using /nick
   rename = message => {
-    var new_Nick =  message.message.replace('/nick', '');
+    var new_Nick =  message.message.replace('/nick ', '');
     this.setState({ name: new_Nick });
-    localStorage.setItem('nickname', new_Nick);
+    localStorage.setItem('Nickname', new_Nick);
+    this.refresh_History();
   }
 
   // Change the chat color to grey (toggle)
   think = Boolean => 
   this.setState({ think: !this.state.think});
+
+  oops = () =>{
+    for (var i = 0; i < this.state.messages.length; i++) {
+      if(this.state.messages[i].name === this.state.name){
+        this.state.messages.splice(i, 1);
+        this.setState({messages: this.state.messages});
+        this.refresh_History();
+        break;
+      }
+    }
+  }
 
   // Highlight the message following /highlight
   highlight = message => {
@@ -138,7 +168,7 @@ class Chat extends Component {
       this.highlight(message);
       this.finalSubmit(message);
     } else if (messageString.includes('/oops')){
-
+      this.oops();
     } else {
       this.finalSubmit(message);
     }
@@ -147,18 +177,18 @@ class Chat extends Component {
   render() {
     return (
       <div className="chat">
-        <p type="text" id='name' className="center">  {this.state.name} </p> 
-        <div className="inside">
-          <div className="reverse">    
-            {this.state.messages.map((message, index) =>
-            <ChatMessage key={index} message={message.message} name={message.name} date={message.date} myself={message.name === this.state.name} think={this.state.think} highlight={message.highlight} />,
-            )}
-          </div>
+      <p type="text" id='name' className="center">  {this.state.name} </p> 
+      <div className="inside">
+      <div className="reverse"> 
+      {this.state.messages.map((message, index) =>
+        <ChatMessage key={index} message={message.message} name={message.name} date={message.date} myself={message.name === this.state.name} think={this.state.think} highlight={message.highlight} />,
+        )}
+        </div>
         </div>
         <ChatInput ws={this.ws} onSubmitMessage={messageString => this.submitMessage(messageString)}/>
-       </div>
-      )
-    }// Render closing
+        </div>
+        )
+      }// Render closing
   }// Chat Class closing
 
   export default Chat
